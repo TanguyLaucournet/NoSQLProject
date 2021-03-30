@@ -64,7 +64,7 @@ def sql_to_redis():
             r.hset(datas, "object-name", row[7])
 
             for i in range(-1, -9, -1):
-                r.lpush("path", pathbin[i]) 
+                r.lpush("path", pathbin[i])
 
             r.incr("datas")
 
