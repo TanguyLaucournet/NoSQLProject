@@ -1,8 +1,11 @@
+os
 json
 redis
 pandas
+pathlib
 pymongo
 MySQLdb
 datetime
 requests
 sqlalchemy
+python-dotenv

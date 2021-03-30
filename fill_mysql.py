@@ -13,7 +13,7 @@ def fill_db():
             body = {"Id":json_element["id"],"Event_type":json_element["event-type"],"Date_creation":json_element["occurredOn"],"Date_ajout":str(datetime.now()),"Version_file":json_element["version"],"Graph_id":json_element["graph-id"],"Nature":json_element["nature"],"Object_name":json_element["object-name"],"Object_path":json_element["path"]}
             requests.post(url,data = body)
             if(count%30 == 29):
-                time.sleep(300)
+                time.sleep(30)
             count = count+1
     
     print('MYSQL DATABASE FILLED')

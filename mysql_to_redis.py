@@ -1,11 +1,12 @@
 # import Redis and MySQL drivers
 import redis
 import MySQLdb
+import settings
 
 # Mysql server data
 MYSQL_IP_ADDRESS_SERVER = 'localhost'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = 'password'
+MYSQL_USER = settings.MYSQL_USER
+MYSQL_PASSWORD = settings.MYSQL_PASSWORD
 MYSQL_DATABASE_NAME = 'nosql'
 
 # Redis server data
@@ -14,12 +15,12 @@ REDIS_SERVER = 'localhost'
 # function to get data from mysql and to transfer it to redis
 def sql_to_redis():
     r = redis.StrictRedis(REDIS_SERVER)
-    print ("")
+    print ()
     print ("Connected to Redis successfully!")
 
     database = MySQLdb.connect(MYSQL_IP_ADDRESS_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE_NAME)
     print ("Connected to MySQL successfully!")
-    print ("")
+    print ()
 
     cursor = database.cursor()
     select = 'SELECT * FROM jsonfile'
@@ -28,7 +29,7 @@ def sql_to_redis():
 
     # Clean redis before run again
     # This is for test purpose
-    r.flushdb()
+    # r.flushdb()
 
     # Put all data from MySQL to Redis
     for row in data:
@@ -91,3 +92,4 @@ def convertToBin(path):
 if __name__ == '__main__':
 
     sql_to_redis()
+    print("Projection to Redis SUCCESS")
