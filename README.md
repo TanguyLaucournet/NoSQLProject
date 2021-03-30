@@ -35,6 +35,12 @@ Le code se chargant d'importer les données de la base MySQL à Redis est [mysql
 ## Vers MongoDB <a name="versMongo"></a>
 
 [mysql_to_mongo.py](mysql_to_mongo.py)
+Pour la projection de MySQL vers Mongo nous avons tenté d'implémenter un scheduler permettant de mettre à jour la base de données MongoDB.
+Pour cela nous importons les données des deux bases dans des dataframes pandas, ensuite nous concatènons ces deux dataframes pour utiliser la fonction de pandas drop_duplicates avec comme arguments 'Keep = False' pour supprimer tous les duplicats.
+Cependant les tests que nous avons fait n'ont pas été concluants.
+La projection de MySQL vers Mongo ce fait donc d'une seule traite sans scheduler.
+
+Il faut donc attendre que la base de donnée MySQL soit rempli par fill_mysql avant d'éxécuter mysql_to_mongo.
 
 # Analyses <a name="analyses"></a>
 
