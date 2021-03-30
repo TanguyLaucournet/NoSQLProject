@@ -66,7 +66,9 @@ print("Sélectionner l'action à éffectuer: ")
 print( '1 - Récupérer le cycle de vie parcouru')
 print( '2 - Compter le nombre d’objets par status')
 print( '3 - Compter le nombre d’objets par status sur la dernière heure')
-print( '4 -  Compter le nombre d’objets respectant l’intégrité du graphe du cycle de vie')
+print( '4 - Compter le nombre d’objets respectant l’intégrité du graphe du cycle de vie')
+print( ' Any other key to quit')
+print('')
 ans = input()
 
 while ans in ['1','2','3','4']:
@@ -89,6 +91,7 @@ while ans in ['1','2','3','4']:
     print( '2 - Compter le nombre d’objets par status')
     print( '3 - Compter le nombre d’objets par status sur la dernière heure')
     print( '4 - Compter le nombre d’objets respectant l’intégrité du graphe du cycle de vie')
+    print( ' Any other key to quit')
     print('')
     ans = input()
     print('')
