@@ -49,6 +49,17 @@ Il faut donc attendre que la base de donnée MySQL soit rempli par fill_mysql av
 
 [redis_analysis.py](redis_analysis.py)
 
+Nous avons implémenté 3 des 4 requêtes demandées sur Redis.
+
+La premiere consiste à utiliser **```retrieveID()```** de façon à récuperer l'index ou nous avons stocké les données d'un objet. Nous appelons ensuite **```retrieve_cycle()```** avec l'ID en paramètre et qui va nous renvoyer une liste contenant minimum 8 élément soit des 0 si l'objet n'a pas eu un statut spécifique ou des 1 si il l'a eu.
+Afin de rendre l'affichage utilisateur plus compréhensible, nous utilisons **```polish_cycle_vie```** qui va retirer des doublons de status dans le cas ou nous avons plus de 9 élément ainsi que **```clean_data()```** pour retirer les 0 restant
+
+Pour compter le nombre d'objet par statut, l'utilisateur sera ammené à rentrer un statut puis la fonction **```count_state()```** le comptera dans la liste des statuts
+
+Nous n'avons pas réalisé le comptage d'objet selon l'heure car nous trouvions redis peu adapté à ce type de requete et nous avons préféré le faire exclusivement sur MongoDB
+
+Enfin **```verified_life()```** appelera la première des implémentations sur chaque élément de la base de données et la comparera a la des statuts comme ayant respecté l'intégrité du graphe de cycle de vie
+ 
 ## Avec MySQL <a name="avecMysql"></a>
 
 [mongo_analysis.py](mongo_analysis.py)
