@@ -59,7 +59,7 @@ def countCompleteLife():
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 db = myclient.database
-mycol= db["collection_name"]
+mycol= db["datalifecycle"]
 
 print('Mongo analysis')
 print("Sélectionner l'action à éffectuer: ")
@@ -78,10 +78,10 @@ while ans in ['1','2','3','4']:
         print(get_life_cycle(obj_name))
         print('')
     elif ans == '2':
-        status = input("Nom du statut")
+        status = input("Nom du statut: ")
         countObjByStatus(status)
     elif ans == '3':
-        status = input("Nom du statut")
+        status = input("Nom du statut: ")
         countObjByStatusLastHour(status)
     elif ans == '4':
         countCompleteLife()

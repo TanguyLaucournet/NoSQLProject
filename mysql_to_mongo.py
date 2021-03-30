@@ -16,11 +16,11 @@ dbConnection.close()
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 dblist = myclient.list_database_names()
-if "esilv-nosqlproject-database" in dblist:
+if "database" in dblist:
     db = myclient.mydatabase
     print("The database exists.")
 else:
-    db = myclient["esilv-nosqlproject-database"]
+    db = myclient["database"]
     print("MongoDB database is created.")
 
 collection = db['datalifecycle']
