@@ -47,11 +47,10 @@ def countCompleteLife():
     counter = 0
     pathlist = ['TO_BE_PURGED', 'PURGED' ,'RECEIVED', 'VERIFIED', 'PROCESSED', 'CONSUMED']
     pathlist2 = ['TO_BE_PURGED', 'PURGED' ,'RECEIVED', 'VERIFIED', 'PROCESSED', 'REJECTED']
-    pathlist3 = ['CREATED', 'PURGED' , 'PROCESSED', 'REJECTED']
-    pathlist4 = ['CREATED', 'PURGED' , 'PROCESSED', 'CONSUMED']
+
     for itm in dist:
         obj_path = get_life_cycle(itm)
-        check = all(element in obj_path for element in pathlist) or all(element in obj_path for element in pathlist2) or all(element in obj_path for element in pathlist3) or all(element in obj_path for element in pathlist4)
+        check = all(element in obj_path for element in pathlist) or all(element in obj_path for element in pathlist2) 
         if check:
             counter+=1
     print('')
