@@ -28,10 +28,10 @@ def countObjByStatus(state):
 
 # Compter le nombre d'objets par status
 def countObjByStatusLastHour(state):
-    start = datetime(2020, 9, 3, 0, 0, 0) # pour le test. mettre datetime.now() - timedelta(hours=1, minutes=0)
+    start = datetime.now() - timedelta(hours=1, minutes=0)
     myquery = { 
         "$and" : [
-               { "object_path": { "$regex": "^.*"+statut+".*$" }},
+               { "object_path": { "$regex": "^.*"+state+".*$" }},
                { "Date_ajout" : { "$gte" : start }},
                 ]
               }
