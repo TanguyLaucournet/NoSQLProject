@@ -8,49 +8,52 @@ import pymongo
 def get_life_cycle(obj_name):
     myquery = { "Object_name": obj_name }
     mydoc = list(mycol.find(myquery))
-    life_cycle =''
-    for x in mydoc:
-      lifecycle += str(x['object_path']).replace("]", ",").replace("[", " ")
-    return lifecycle
+    life_cycle =[]
+    for elem in mydoc:
+            path = elem['object_path'].replace("]", "").replace("[", "").replace(" ","").split(',')
+            for x in path:
+                life_cycle.append(x)
+    life_cycle = sorted(set(life_cycle))
+    return life_cycle
 
 # Compter le nombre d'objets par status
 def countObjByStatus(state):
     myquery = { "object_path": { "$regex": "^.*"+state+".*$" } }
     mydoc = mycol.find(myquery)
     data = list(mydoc)
-    print(len(data))
+    print('')
+    print("Nombre d'objet ayant le statut '"+state+"': "+str(len(data)))
+    print('')
     return len(data)
 
 # Compter le nombre d'objets par status
 def countObjByStatusLastHour(state):
-    start = datetime.now() - timedelta(hours=1, minutes=0)
-    myquery = {
+    start = datetime(2020, 9, 3, 0, 0, 0) # pour le test. mettre datetime.now() - timedelta(hours=1, minutes=0)
+    myquery = { 
         "$and" : [
-               { "object_path": { "$regex": "^.*"+state+".*$" }},
+               { "object_path": { "$regex": "^.*"+statut+".*$" }},
                { "Date_ajout" : { "$gte" : start }},
                 ]
               }
     mydoc = mycol.find(myquery)
     data = list(mydoc)
-    print(len(data))
-    return len(data)
+    print('')
+    print("Nombre d'objet ayant le statut '"+state+"': "+str(len(data)))
+    print('')
+    return data
 
 def countCompleteLife():
-    dist = mycol.distinct('Id')
+    dist = mycol.distinct('Object_name')
     counter = 0
     pathlist = ['TO_BE_PURGED', 'PURGED' ,'RECEIVED', 'VERIFIED', 'PROCESSED', 'CONSUMED']
     for itm in dist:
-        obj_path = []
-        myquery = { "Id": itm }
-        mydoc = list(mycol.find(myquery))
-        for elem in mydoc:
-            path = elem['object_path'].replace("]", "").replace("[", "").replace(" ","").split(',')
-            for x in path:
-                obj_path.append(x)
+        obj_path = get_life_cycle(itm)
         check = all(element in obj_path for element in pathlist)
         if check:
             counter+=1
-    print(counter)
+    print('')
+    print("Le nombre d'objets respectant l'intégrité du cycle de vie est de "+str(counter))
+    print('')
     return counter
 
 
@@ -69,7 +72,9 @@ ans = input()
 while ans in ['1','2','3','4']:
     if ans == '1' :
         obj_name = input("Nom de l'objet: ")
-        get_life_cycle(obj_name)
+        print('')
+        print(get_life_cycle(obj_name))
+        print('')
     elif ans == '2':
         status = input("Nom du statut")
         countObjByStatus(status)
@@ -84,4 +89,6 @@ while ans in ['1','2','3','4']:
     print( '2 - Compter le nombre d’objets par status')
     print( '3 - Compter le nombre d’objets par status sur la dernière heure')
     print( '4 - Compter le nombre d’objets respectant l’intégrité du graphe du cycle de vie')
+    print('')
     ans = input()
+    print('')
