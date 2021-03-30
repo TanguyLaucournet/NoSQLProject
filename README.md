@@ -35,6 +35,7 @@ Le code se chargant d'importer les données de la base MySQL à Redis est [mysql
 ## Vers MongoDB <a name="versMongo"></a>
 
 [mysql_to_mongo.py](mysql_to_mongo.py)
+
 Pour la projection de MySQL vers Mongo nous avons tenté d'implémenter un scheduler permettant de mettre à jour la base de données MongoDB.
 Pour cela nous importons les données des deux bases dans des dataframes pandas, ensuite nous concatènons ces deux dataframes pour utiliser la fonction de pandas drop_duplicates avec comme arguments 'Keep = False' pour supprimer tous les duplicats.
 Cependant les tests que nous avons fait n'ont pas été concluants.
@@ -50,4 +51,9 @@ Il faut donc attendre que la base de donnée MySQL soit rempli par fill_mysql av
 
 ## Avec MySQL <a name="avecMysql"></a>
 
-[mongo_analysis.py](mongo_analysis.py)4dcffccc-4440-46ce-a9fa-fc9787de191c
+[mongo_analysis.py](mongo_analysis.py)
+
+Pour l'analyse de la base de données Mongo nous avons implémenter les quatres requêtes demandées.
+get_life_cycle prend en attribut le nom d'un objet et retourne sont cycle de vie 'object_path'.
+Les fonctions countObjByStatus et countObjByStatusLastHour prennent en argument un statut particulier et retourne le nombre d'objets possédant ce statut ( uniquement ceux de la dernière heure pour countObjByStatusLastHour)
+La fonction countCompleteLife utilise la fonction get_life_cycle pour reconstituer le cycle de vie de chacun des objets présents dans la base puis incrémente un compteur dans le cas ou le cycle de vie de cet objet respecte l'intégrité du graphe du cycle de vie, enfin le compteur est retourné.
